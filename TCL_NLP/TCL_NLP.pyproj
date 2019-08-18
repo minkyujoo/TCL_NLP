@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>160ca944-d833-426a-80b6-b3324ee5a7b1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TCL_NLP.py</StartupFile>
+    <StartupFile>similarity .py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,43 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="acquisition.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bagofwords.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="extractnewstopic.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="similarity .py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="deployment.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eliminate_stopwords.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="evaluation.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modelandtraining.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="preprocessing.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TCL_NLP.py" />
+    <Compile Include="topic.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="transformer.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="movies_metadata.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
