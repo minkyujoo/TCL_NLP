@@ -82,6 +82,26 @@ est = tf.estimator.EstimatorSpec(model_fn, model_dir='data_out/checkpoint/cnn_mo
 time_start = datetime.utcnow()
 est.train(train_input_fn)
 time_end = datetime.utcnow()
+time_elapsed = time_end - time_start
+print("Experiment elapsed time: {} seconds", format(time_elapsed.total_seconds()))
+
+valid = est.evaluate(eval_input_fn)
+
+#test
+INPUT_TEST_DATA_FILE_NAME = 'nsmc_test_input.npy'
+LABEL_TEST_DATA_FILE_NAME = 'nsmc_test_label.npy'
+test_input_data = np.load(open(FILE_DIR_PATH + INPUT_TEST_DATA_FILE_NAME, 'rb'))
+test_label_data = np.load(open(FILE_DIR_PATH + LABEL_TEST_DATA_FILE_NAME, 'rb'))
+
+def test_input_fn():
+  dataset = tf.data.Dataset.from_tensor_slices(test_input_data,test_label_data)
+  dataset = dataset.batch(BATCH_SIZE)
+  dataset = dataset.map(mapping_fn)
+  iterator = dataset.make_one_shot_iterator()
+  return iterator.get_next()
+
+predict = est.evaluate(test_input_fn)
+
 
   
   
