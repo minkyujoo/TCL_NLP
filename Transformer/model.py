@@ -12,3 +12,7 @@ def layer_norm(inputs, eps=1e-6):
   gamma = tf.get_variable("gamma", initialize=tf.zeros(feature_shape))
   return gamma * (inputs-mean) / (std+eps) + beta
 
+def sublayer_connection(inputs, sublayer, dropout=2):
+  outputs= layer_norm(inputs + tf.keras.Dropout(dropout)(sublayer))
+  return outputs
+
