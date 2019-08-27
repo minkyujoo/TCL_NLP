@@ -1,5 +1,7 @@
-from konlpy.tag import Twitter
 from sklearn.feature_extraction.text import CountVectorizer
+from konlpy.tag import Twitter
+t = Twitter()
+
 vectorizer = CountVectorizer(min_df = 1)
 
 contents = ['메리랑 놀러가고 싶지만 바쁜데 어떻하죠?', '메리는 공원에서 산책하고 노는 것을 싫어해요', 
@@ -8,7 +10,6 @@ contents = ['메리랑 놀러가고 싶지만 바쁜데 어떻하죠?', '메리는 공원에서 산책하고
 X = vectorizer.fit_transform(contents)
 vectorizer.get_feature_names()
 
-t= Twitter()
 contents_tokens = [t.morphs(row) for row in contents]
 contents_for_vectorize = []
 
@@ -33,12 +34,12 @@ for content in new_post_tokens:
 
     new_post_for_vectorize.append(sentence)
 
-new_post_vec  = vectorizer.transform(new_post_for_vectorize)
+new_post_vec = vectorizer.transform(new_post_for_vectorize)
 new_post_vec.toarray()
 
 import scipy as sp
 def dist_raw(v1, v2):
-    delta = v1 -v2
+    delta = v1 - v2
     return sp.linalg.norm(delta.toarray())
 
 best_doc = None
@@ -49,14 +50,14 @@ for i in range(0, num_samples):
     post_vec = X.getrow(i)
     d = dist_raw(post_vec, new_post_vec)
 
-    print("== Post %i with dist=%.2f : %s" %(i,d,contents[i]))
-    if d<best_dist:
+    print("== Post %i with dist=%.2f : %s" % (i,d,contents[i]))
+    if d < best_dist:
         best_dist = d
         best_i = i
 
 def dist_norm(v1, v2):
-    v1_normalized = v1 /sp.linalg.norm(v1.toarray())
-    v2_normalized = v2 /sp.linalg.norm(v2.toarray())
+    v1_normalized = v1 / sp.linalg.norm(v1.toarray())
+    v2_normalized = v2 / sp.linalg.norm(v2.toarray())
     delta = v1_normalized - v2_normalized
     return sp.linalg.norm(delta.toarray())
 
@@ -68,15 +69,15 @@ for i in range(0, num_samples):
     post_vec = X.getrow(i)
     d = dist_raw(post_vec, new_post_vec)
 
-    print("== Post %i with dist=%.2f : %s" %(i,d,contents[i]))
-    if d<best_dist:
+    print("== Post %i with dist=%.2f : %s" % (i,d,contents[i]))
+    if d < best_dist:
         best_dist = d
         best_i = i
 
 # tf-idf (term frequency inverse document frequency)
 def tfidf(t,d, D):
     tf = float(d.count(t)) / sum(d.count(w) for w in set(d))
-    idf = sp.log(float(len(D))/(len([doc for doc in D if t in doc])))
+    idf = sp.log(float(len(D)) / (len([doc for doc in D if t in doc])))
     return tf, idf
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -87,7 +88,7 @@ contents_for_vectorize = []
 for content in contents_tokens:
     sentence = ''
     for word in content:
-        sentence = sentence + ' '+word
+        sentence = sentence + ' ' + word
     contents_for_vectorize.append(sentence)
 X = vectorizer.fit_transform(contents_for_vectorize)
 num_samples , num_features = X.shape
@@ -106,7 +107,7 @@ for content in new_post_tokens:
 
     new_post_for_vectorize.append(sentence)
 
-new_post_vec  = vectorizer.transform(new_post_for_vectorize)
+new_post_vec = vectorizer.transform(new_post_for_vectorize)
 
 
 best_doc = None
@@ -117,8 +118,7 @@ for i in range(0, num_samples):
     post_vec = X.getrow(i)
     d = dist_norm(post_vec, new_post_vec)
 
-    print("== Post %i with dist=%.2f : %s" %(i,d,contents[i]))
-    if d<best_dist:
+    print("== Post %i with dist=%.2f : %s" % (i,d,contents[i]))
+    if d < best_dist:
         best_dist = d
         best_i = i
-
