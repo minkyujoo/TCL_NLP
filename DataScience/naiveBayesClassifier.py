@@ -14,7 +14,7 @@ classifier.show_most_informative_features()
 # test
 test_sentence = 'i like Merui'
 test_sent_features = {word.lower(): (word in word_tonenize(test_sentence.lower())) for word in all_words}
-
+ㅁ
 classifier.classify(test_sent_features)
 
 

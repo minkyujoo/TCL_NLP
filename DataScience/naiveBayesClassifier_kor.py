@@ -1,14 +1,14 @@
 from konlpy.tag import Twitter
 pos_tagger = Twitter()
 
-train= [('¸Þ¸®°¡ ÁÁ¾Æ', 'pos'),('°í¾çÀÌµµ ÁÁ¾Æ', 'pos'),('³­ ¼ö¾÷ÀÌ Áö·çÇØ', 'neg'),('¸Þ¸®´Â ÀÌ»Û °í¾çÀÌ', 'pos'),('³­ ¸¶Ä¡°í ¸Þ¸®¶û ³î°Å¾ß', 'pos')]
+train= [('ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 'pos'),('ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½', 'pos'),('ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'neg'),('ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½', 'pos'),('ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½Å¾ï¿½', 'pos')]
 all_words = set(word.lower() for sentene in trian for word in word_tokenize(sentence[0]))
 
 t= [({word: (word in word_tokenize(x[0])) for word in all_words}, BaseException[1]) for x in train]
 classifier = nltk.NaiveBayesClassifier.train(t)
 classifier.show_most_informative_features()
 
-test_sentence = '³­ ¼ö¾÷À» ¸¶Ä¡¸é ¸Þ¸®¶û ³î°Å¾ß'
+test_sentence = 'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½Å¾ï¿½'
 test_sent_features = {word.lower(): (word in word_tokenize(test_sentence.lower())) for word in all_words}
 classifier.classify(test_sent_features)
 
@@ -24,7 +24,7 @@ def  term_exists(doc):
 train_xy = [(term_exists(d), c) for d,c in train_docs]
 classifier = nltk.NaiveBayesClassifier.train(train_xy)
 
-test_sentence = '³­ ¼ö¾÷À» ¸¶Ä¡¸é ¸Þ¸®¶û ³î°Å¾ß'
+test_sentence = 'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½Å¾ï¿½'
 
 test_docs = pos_tagger.pos(test_sentence[0])
 test_sent_features = {word: (word in tokens) for word in test_docs}
